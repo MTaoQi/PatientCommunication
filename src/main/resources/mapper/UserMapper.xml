@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="a.b.mapper.UserMapper">
-
+<mapper namespace="pc.disease.mapper.UserMapper">
+<select id="selAllUser" resultType="java.lang.String">
+    select distinct identity from user
+</select>
 </mapper>

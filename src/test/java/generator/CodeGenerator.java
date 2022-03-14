@@ -12,7 +12,6 @@ import com.baomidou.mybatisplus.generator.fill.Column;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * 自动生成代码类
@@ -43,7 +42,7 @@ public class CodeGenerator {
                         .serviceImpl("serviceImpl")
                         .mapper("mapper")
                         .xml("mapper")
-                        .other("utils")
+                        .other("pc/utils")
                         .pathInfo(Collections.singletonMap(OutputFile.mapperXml, System.getProperty("user.dir") + "/src/main/resources/mapper"))
                 )
                 // 策略配置

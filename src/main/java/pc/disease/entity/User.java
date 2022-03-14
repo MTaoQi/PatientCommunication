@@ -25,14 +25,31 @@ public class User {
     @TableField("username")
     private String username;
 
-    @TableField("userpass")
-    private String userpass;
+    @TableField("password")
+    private String password;
+
+    @TableField("email")
+    private String email;
 
     @TableField("identity")
-    private String identity;
+    private int identity;
 
     @TableField("symptoms")
     private String symptoms;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userid='" + userid + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", identity='" + identity + '\'' +
+                ", symptoms='" + symptoms + '\'' +
+                '}';
+    }
+
+
 
 
 }

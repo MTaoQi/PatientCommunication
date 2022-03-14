@@ -1,22 +1,105 @@
 package pc.disease.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import pc.disease.entity.User;
+import pc.disease.mapper.UserMapper;
+import pc.disease.service.UserService;
+import pc.utils.EmailUtil;
 
-import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author lazymxh
  * @since 2022-01-18 04:10:52
  */
+@Data
 @RestController
 @RequestMapping("/disease/user")
 public class UserController {
-    public String hello(){
-        return "hello spring boot!";
+//
+    private final UserMapper userMapper;
+
+    @Autowired
+//    @Qualifier("userreg")
+    private UserService userService;
+
+    @Autowired
+    private EmailUtil emailUtil;
+
+    //    @Resource
+//    UserMapper userMapper;
+//    注册
+    @RequestMapping("/registe")
+    public Map reg(@RequestBody User user) {
+
+        return userService.reg(user);
     }
+
+    //
+//    @GetMapping("/login")
+//    public int login(@RequestParam("email") String email,@RequestParam("password") String password) {
+//        User isuser = userMapper.selectOne(new QueryWrapper<User>().eq("email", email).eq("password", password));
+//        //登录失败 返回0
+//        System.out.println(isuser);
+//        if(isuser==null){
+//            return 0;
+//        }
+//        return 1;
+//    }
+//    jtw   加密
+//    登录
+    @RequestMapping("/login")
+    public Map login(@RequestBody User user) {
+
+        return userService.lgn(user);
+    }
+
+    @GetMapping("/login2")
+    public Map login2(@RequestParam("email") String email, @RequestParam("password") String password) {
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(password);
+        return userService.lgn(user);
+    }
+   //邮箱验证码（验证身份）2
+    @GetMapping("/sendEmail")
+    public String sendEmail(@RequestParam("email") String email) {
+
+
+        // 验证码随机数
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            result.append(Math.round(Math.random() * 9));
+        }
+        String code = result.toString();
+        emailUtil.sendSimpleTextMail(email, "患者交流", "您正在进行重置密码操作，验证码：" + code);
+
+        return code;
+    }
+    //忘记密码 邮箱存在返回(确认账号)1
+    @RequestMapping("/forgotpwdSelect")
+    public Map forgotpwdSelect(@RequestBody User user){
+        return userService.forgotpwdSelect(user);
+
+    }
+    //（修改密码）3
+    @RequestMapping("/forgotpwdUpdate")
+    public Map forgotpwdUpdate(@RequestBody User user){
+        return userService.forgotpwdUpdate(user);
+    }
+//
+//@GetMapping("/getAllUser")
+//public List<String> selAllUser(){
+//        return userMapper.selAllUser();
+//}
+
 }
