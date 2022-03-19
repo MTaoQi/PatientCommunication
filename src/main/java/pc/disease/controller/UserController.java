@@ -8,6 +8,7 @@ import pc.disease.entity.User;
 import pc.disease.mapper.UserMapper;
 import pc.disease.service.UserService;
 import pc.utils.EmailUtil;
+import pc.utils.PcResultutil;
 
 
 import java.util.List;
@@ -35,36 +36,24 @@ public class UserController {
     @Autowired
     private EmailUtil emailUtil;
 
-    //    @Resource
-//    UserMapper userMapper;
+
 //    注册
     @RequestMapping("/registe")
-    public Map reg(@RequestBody User user) {
+    public PcResultutil reg(@RequestBody User user) {
 
         return userService.reg(user);
     }
 
-    //
-//    @GetMapping("/login")
-//    public int login(@RequestParam("email") String email,@RequestParam("password") String password) {
-//        User isuser = userMapper.selectOne(new QueryWrapper<User>().eq("email", email).eq("password", password));
-//        //登录失败 返回0
-//        System.out.println(isuser);
-//        if(isuser==null){
-//            return 0;
-//        }
-//        return 1;
-//    }
 //    jtw   加密
 //    登录
     @RequestMapping("/login")
-    public Map login(@RequestBody User user) {
+    public PcResultutil login(@RequestBody User user) {
 
         return userService.lgn(user);
     }
 
     @GetMapping("/login2")
-    public Map login2(@RequestParam("email") String email, @RequestParam("password") String password) {
+    public PcResultutil login2(@RequestParam("email") String email, @RequestParam("password") String password) {
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
@@ -87,19 +76,19 @@ public class UserController {
     }
     //忘记密码 邮箱存在返回(确认账号)1
     @RequestMapping("/forgotpwdSelect")
-    public Map forgotpwdSelect(@RequestBody User user){
+    public PcResultutil forgotpwdSelect(@RequestBody User user){
         return userService.forgotpwdSelect(user);
 
     }
     //（修改密码）3
     @RequestMapping("/forgotpwdUpdate")
-    public Map forgotpwdUpdate(@RequestBody User user){
+    public PcResultutil forgotpwdUpdate(@RequestBody User user){
         return userService.forgotpwdUpdate(user);
     }
-//
-//@GetMapping("/getAllUser")
-//public List<String> selAllUser(){
-//        return userMapper.selAllUser();
-//}
+
+@GetMapping("/getAllUser")
+public List<String> selAllUser(){
+        return userMapper.selAllUser();
+}
 
 }

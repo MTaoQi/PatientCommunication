@@ -13,6 +13,7 @@ import lombok.Data;
 
 // 统一结果返回类
 @Data
+//@NoArgsConstructor 无参构造
 @AllArgsConstructor
 public class PcResultutil {
     //标识返回的状态码
@@ -24,6 +25,20 @@ public class PcResultutil {
 
     //私有化，防止new
     private PcResultutil() {  }
+    //成功
+    public static PcResultutil ok(Object data, String message) {
+        return new PcResultutil(200, message, data);
+    }
+
+    //成功返回 重载 message没有特别要求
+    public static PcResultutil ok(Object data) {
+        return PcResultutil.ok(data, "success");
+    }
+
+    // 失败
+    public static PcResultutil error( Integer code, String message) {
+        return new PcResultutil(code, message, "");
+    }
 
 
 }

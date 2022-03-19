@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pc.disease.entity.Carousel;
 import pc.disease.service.CarouselService;
+import pc.utils.PcResultutil;
 
 import java.util.List;
 import java.util.Map;
@@ -28,9 +29,12 @@ public class CarouselController {
     @Autowired
     private CarouselService carouselService;
     @GetMapping("/pic")
-    public List pic(){
+//    public List pic(){
+//        return carouselService.pic();
+//
+//    }
+    public PcResultutil pic(){
         return carouselService.pic();
-
     }
 
 

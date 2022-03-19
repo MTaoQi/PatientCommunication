@@ -2,6 +2,7 @@ package pc.disease.service;
 
 import pc.disease.entity.Carousel;
 import com.baomidou.mybatisplus.extension.service.IService;
+import pc.utils.PcResultutil;
 
 import java.util.List;
 import java.util.Map;
@@ -15,8 +16,7 @@ import java.util.Map;
  * @since 2022-03-03 10:36:08
  */
 public interface CarouselService extends IService<Carousel> {
-    List pic();
-//
-//
+    PcResultutil pic();
 //    List pic();
+
 }

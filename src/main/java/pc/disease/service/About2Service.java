@@ -2,6 +2,7 @@ package pc.disease.service;
 
 import pc.disease.entity.About2;
 import com.baomidou.mybatisplus.extension.service.IService;
+import pc.utils.PcResultutil;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface About2Service extends IService<About2> {
 
+    PcResultutil about2Servicetp2();
 }

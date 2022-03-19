@@ -10,11 +10,12 @@ import pc.disease.mapper.UserMapper;
 import pc.disease.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import pc.utils.PcResultutil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * <p>
@@ -31,7 +32,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     UserMapper userMapper;
 
     @Override
-    public Map reg(User user) {
+    public PcResultutil reg(User user) {
         String username = user.getUsername();
         String email = user.getEmail();
         String password = user.getPassword();
@@ -45,10 +46,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             user2.setIdentity(user.getIdentity());
             user2.setSymptoms(user.getSymptoms());
             userMapper.insert(user2);
-            Map<Object, Object> map = new HashMap<>();
-
-            map.put("success", 1);
-            return map;
+            return PcResultutil.ok(1,"注册成功,已经登录");
 //            User username1 = userMapper.selectOne(new QueryWrapper<User>().eq("username", username));
 //            return username1;
         }
@@ -56,64 +54,48 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 //        return user1;
         List username1 = userMapper.selectList(new QueryWrapper<User>().eq("username", username).or().eq("email", email));
         System.out.println(username1);
-        Map<String, Object> map = new HashMap<>();
-        map.put("success", 0);
-        return map;
+        return PcResultutil.error(500,"用户已存在");
     }
 
     @Override
-    public Map lgn(User user) {
+    public PcResultutil lgn(User user) {
         String email = user.getEmail();
         String password = SaSecureUtil.md5(user.getPassword());
-
         User isuser = userMapper.selectOne(new QueryWrapper<User>().eq("email", email).eq("password", password));
-        //登录失败 返回0
+        //登录失败
         System.out.println(isuser);
-        Map<String, Object> map = new HashMap<>();
         if (isuser == null) {
-            map.put("userid", 0);
-            return map;
+            return PcResultutil.error(500,"用户名或密码错误");
         }
         //登录成功
-//            if( StpUtil.hasRole("0");)
-        map.put("userid", isuser.getUserid());
-        return map;
+
+        else {
+               return PcResultutil.ok(1,"登录成功");
+        }
 
     }
 
     //忘记密码 邮箱存在1
     @Override
-    public Map forgotpwdSelect(User user) {
+    public PcResultutil forgotpwdSelect(User user) {
         QueryWrapper<User> wrapper = new QueryWrapper<User>();
         boolean isemail = userMapper.exists(wrapper.eq("email", user.getEmail()));
-        Map<String, Object> map = new HashMap<>();
         if (isemail == true) {
-//           map.put("email",user.getEmail());
-//           List<User> users = userMapper.selectByMap(map);
-//            users.forEach(System.out::println);
-            //邮箱存在返回1
-            map.put("exist", 1);
-            return map;
+            return PcResultutil.ok(1,"邮箱存在已确认");
         }
-        map.put("exist", 0);
-        return map;
+        return PcResultutil.error(500,"邮箱不存在");
     }
 
     //（修改密码）3
     @Override
-    public Map forgotpwdUpdate(User user) {
+    public PcResultutil forgotpwdUpdate(User user) {
         UpdateWrapper<User> UpdateWrapper = new UpdateWrapper<>();
         UpdateWrapper.eq("email", user.getEmail()).set("password", SaSecureUtil.md5(user.getPassword()));
-
         int update = userMapper.update(user, UpdateWrapper);
-        Map<Object, Object> map = new HashMap<>();
         if (update != 0) {
-            map.put("success", 1);
-            return map;
+            return PcResultutil.ok(1,"修改成功");
         }
-        map.put("success", 0);
-        return map;
+        return PcResultutil.error(500,"修改失败");
     }
-
 
 }
