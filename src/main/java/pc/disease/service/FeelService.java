@@ -1,6 +1,6 @@
 package pc.disease.service;
 
-import pc.disease.entity.Communication;
+import pc.disease.entity.Feel;
 import com.baomidou.mybatisplus.extension.service.IService;
 import pc.utils.PcResultutil;
 
@@ -12,7 +12,8 @@ import pc.utils.PcResultutil;
  * @author lazymxh
  * @since 2022-03-19 07:40:10
  */
-public interface CommunicationService extends IService<Communication> {
+public interface FeelService extends IService<Feel> {
 
    PcResultutil selmood(String mood);
+
 }

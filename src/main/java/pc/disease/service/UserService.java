@@ -27,4 +27,9 @@ public interface UserService extends IService<User> {
 
     PcResultutil forgotpwdUpdate(User user);
 
+    PcResultutil getUname(String userid);
+
+    PcResultutil getnum();
+
+    PcResultutil care();
 }

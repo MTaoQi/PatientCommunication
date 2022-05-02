@@ -37,6 +37,9 @@ public class User {
     @TableField("symptoms")
     private String symptoms;
 
+    @TableField("roleid")
+    private int roleid;
+
     @Override
     public String toString() {
         return "User{" +
@@ -44,10 +47,12 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", identity='" + identity + '\'' +
+                ", identity=" + identity +
                 ", symptoms='" + symptoms + '\'' +
+                ", roleid=" + roleid +
                 '}';
     }
+
 
 
 

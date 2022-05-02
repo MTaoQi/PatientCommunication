@@ -17,11 +17,11 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("communication")
-public class Communication {
+@TableName("feel")
+public class Feel {
 
     /**
-     * 交流id
+     * id
      */
     @TableId("id")
     private String id;
@@ -35,8 +35,8 @@ public class Communication {
     /**
      * 发布内容
      */
-    @TableField("publicationcontent")
-    private String publicationContent;
+//    @TableField("publicationcontent")
+//    private String publicationContent;
 
     /**
      * 用户状态（0差，1较差，2中等，3较好，4很好）
@@ -49,7 +49,7 @@ public class Communication {
      * 发布时间
      */
     @TableField("time")
-    private LocalDateTime time;
+    private String time;
 
 
 }

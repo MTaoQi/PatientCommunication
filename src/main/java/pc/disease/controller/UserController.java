@@ -12,13 +12,12 @@ import pc.utils.PcResultutil;
 
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
  * 前端控制器
  * </p>
- *
+ * 用户
  * @author lazymxh
  * @since 2022-01-18 04:10:52
  */
@@ -35,6 +34,8 @@ public class UserController {
 
     @Autowired
     private EmailUtil emailUtil;
+
+
 
 
 //    注册
@@ -85,10 +86,24 @@ public class UserController {
     public PcResultutil forgotpwdUpdate(@RequestBody User user){
         return userService.forgotpwdUpdate(user);
     }
-
+//
 @GetMapping("/getAllUser")
 public List<String> selAllUser(){
         return userMapper.selAllUser();
 }
+@GetMapping("/getUname")
+    public  PcResultutil getUname(@RequestParam("userid") String userid){
+        return userService.getUname(userid);
+}
 
+    //查询记录数
+    @GetMapping("/num")
+    public PcResultutil getnum(){
+        return userService.getnum();
+    }
+    //查询照顾者数量
+    @GetMapping("/care")
+    public PcResultutil care(){
+        return userService.care();
+    }
 }

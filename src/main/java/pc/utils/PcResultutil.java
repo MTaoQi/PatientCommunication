@@ -15,6 +15,7 @@ import lombok.Data;
 @Data
 //@NoArgsConstructor 无参构造
 @AllArgsConstructor
+//有参构造
 public class PcResultutil {
     //标识返回的状态码
     private Integer code;
@@ -25,6 +26,15 @@ public class PcResultutil {
 
     //私有化，防止new
     private PcResultutil() {  }
+
+    public PcResultutil(int code, String message) {
+        this.code = code;
+        this.message =message;
+    }
+
+    public static PcResultutil ok(){
+        return new PcResultutil(200,"success");
+    }
     //成功
     public static PcResultutil ok(Object data, String message) {
         return new PcResultutil(200, message, data);
